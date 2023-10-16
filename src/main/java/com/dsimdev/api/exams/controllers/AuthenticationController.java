@@ -19,7 +19,7 @@ import java.security.Principal;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/api/v1/auth")
+@RequestMapping("/auth")
 public class AuthenticationController {
 
     @Autowired

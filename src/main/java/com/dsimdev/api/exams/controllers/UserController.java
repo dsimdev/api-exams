@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Set;
 
 @RestController
-@RequestMapping("/api/v1/users")
+@RequestMapping("/auth/users")
 @CrossOrigin("*")
 public class UserController {
 
@@ -22,16 +22,6 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
-    @GetMapping
-    public List<User> readUsers() {
-        return userService.readUsers();
-    }
-
-    @GetMapping("/{username}")
-    public User readUser(@PathVariable("username") String username) {
-        return userService.readUser(username);
-    }
 
     @PostMapping("/")
     public User createUser(@RequestBody User user) throws Exception {
@@ -51,6 +41,16 @@ public class UserController {
         userRoles.add(userRole);
 
         return userService.createUser(user, userRoles);
+    }
+
+    @GetMapping
+    public List<User> readUsers() {
+        return userService.readUsers();
+    }
+
+    @GetMapping("/{username}")
+    public User readUser(@PathVariable("username") String username) {
+        return userService.readUser(username);
     }
 
     @DeleteMapping("/{userId}")
