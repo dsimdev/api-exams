@@ -5,6 +5,7 @@ import com.dsimdev.api.exams.pojos.User;
 import com.dsimdev.api.exams.pojos.UserRole;
 import com.dsimdev.api.exams.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
@@ -15,6 +16,9 @@ import java.util.Set;
 @RequestMapping("/api/v1/users")
 @CrossOrigin("*")
 public class UserController {
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     private UserService userService;
@@ -32,6 +36,8 @@ public class UserController {
     @PostMapping("/")
     public User createUser(@RequestBody User user) throws Exception {
         user.setPhoto("default.png");
+        user.setPassword(this.bCryptPasswordEncoder.encode(user.getPassword()));
+
         Set<UserRole> userRoles = new HashSet<>();
 
         Role role = new Role();

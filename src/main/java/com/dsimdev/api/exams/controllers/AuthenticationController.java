@@ -1,6 +1,7 @@
 package com.dsimdev.api.exams.controllers;
 
 import com.dsimdev.api.exams.configs.JwtUtils;
+import com.dsimdev.api.exams.exceptions.UserNotFoundException;
 import com.dsimdev.api.exams.pojos.JwtRequest;
 import com.dsimdev.api.exams.pojos.JwtResponse;
 import com.dsimdev.api.exams.pojos.User;
@@ -12,7 +13,6 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -35,7 +35,7 @@ public class AuthenticationController {
     public ResponseEntity<?> generateToken(@RequestBody JwtRequest jwtRequest) throws Exception {
         try {
             this.authenticateUser(jwtRequest.getUsername(), jwtRequest.getPassword());
-        } catch (UsernameNotFoundException e) {
+        } catch (UserNotFoundException e) {
             throw new Exception("USER NOT FOUND" + e.getMessage());
         }
 
