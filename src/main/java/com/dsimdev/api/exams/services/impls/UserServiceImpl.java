@@ -1,5 +1,6 @@
 package com.dsimdev.api.exams.services.impls;
 
+import com.dsimdev.api.exams.exceptions.UserFoundException;
 import com.dsimdev.api.exams.pojos.User;
 import com.dsimdev.api.exams.pojos.UserRole;
 import com.dsimdev.api.exams.repos.RoleRepository;
@@ -35,7 +36,7 @@ public class UserServiceImpl implements UserService {
         User localUser = userRepository.findByUsername(user.getUsername());
 
         if (localUser != null) {
-            throw new Exception("User already exists");
+            throw new UserFoundException("User already exists");
         } else {
             for (UserRole userRole : userRoles) {
                 roleRepository.save(userRole.getRole());
@@ -50,5 +51,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUser(Long userId) {
         userRepository.deleteById(userId);
+    }
+
+    @Override
+    public User updateUser(User user) {
+        return this.userRepository.save(user);
     }
 }

@@ -8,12 +8,14 @@ import java.util.Set;
 
 public interface UserService {
 
-    public List<User> readUsers();
+    List<User> readUsers();
 
-    public User readUser(String username);
+    User readUser(String username);
 
-    public User createUser(User user, Set<UserRole> userRoles) throws Exception;
+    User createUser(User user, Set<UserRole> userRoles) throws Exception;
 
-    public void deleteUser(Long userId);
+    void deleteUser(Long userId);
+
+    User updateUser(User user);
 
 }
