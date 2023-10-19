@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.Column;
-import java.sql.Array;
 import java.util.*;
 
 @RestController
@@ -66,10 +64,37 @@ public class QuestionController {
 
     @GetMapping("/exam/all/{examId}")
     public ResponseEntity<?> getExamQuestionAsAdmin(@PathVariable("examId") Long examId) {
-        Exam exam = new Exam();
-        exam.setExamId(examId);
-        Set<Question> questions = questionService.readExamQuestions(exam);
+        Exam examLocal = new Exam();
+        examLocal.setExamId(examId);
+        Set<Question> questions = questionService.readExamQuestions(examLocal);
         return ResponseEntity.ok(questions);
+    }
+
+    @PostMapping("/evaluate-exam")
+    public ResponseEntity<?> evaluateExam(@RequestBody List<Question> questions) {
+        double maxPoints = 0;
+        Integer correctAnswers = 0;
+        Integer tries = 0;
+
+        for (Question q : questions) {
+            Question question = this.questionService.readQuestion(q.getQuestionId());
+            if (question.getAnswer().equals(q.getGivenAnswer())) {
+                correctAnswers++;
+                double points = Double.parseDouble(questions.get(0).getExam().getMaxPoints()) / questions.size();
+                maxPoints += points;
+            }
+            if (q.getGivenAnswer() != null) {
+                tries++;
+            }
+        }
+
+        Map<String, Object> answers = new HashMap<>();
+        answers.put("maxPoints", maxPoints);
+        answers.put("correctAnswers", correctAnswers);
+        answers.put("tries", tries);
+
+        return ResponseEntity.ok(answers);
+
     }
 
 }

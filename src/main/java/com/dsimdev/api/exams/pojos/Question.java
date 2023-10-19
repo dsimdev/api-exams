@@ -21,6 +21,10 @@ public class Question {
     private String option4;
     private String answer;
 
+
+    @Transient
+    private String givenAnswer;
+
     @ManyToOne(fetch = FetchType.EAGER)
     private Exam exam;
 
@@ -109,6 +113,14 @@ public class Question {
 
     public void setExam(Exam exam) {
         this.exam = exam;
+    }
+
+    public String getGivenAnswer() {
+        return givenAnswer;
+    }
+
+    public void setGivenAnswer(String givenAnswer) {
+        this.givenAnswer = givenAnswer;
     }
 
     @Override

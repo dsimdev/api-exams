@@ -5,6 +5,7 @@ import com.dsimdev.api.exams.pojos.User;
 import com.dsimdev.api.exams.pojos.UserRole;
 import com.dsimdev.api.exams.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -56,6 +57,11 @@ public class UserController {
     @DeleteMapping("/{userId}")
     public void deleteUser(@PathVariable("userId") Long userId) {
         userService.deleteUser(userId);
+    }
+
+    @PutMapping()
+    public ResponseEntity<User> updateExam(@RequestBody User user) {
+        return ResponseEntity.ok(userService.updateUser(user));
     }
 
 }

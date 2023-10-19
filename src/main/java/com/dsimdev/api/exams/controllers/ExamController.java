@@ -1,10 +1,13 @@
 package com.dsimdev.api.exams.controllers;
 
+import com.dsimdev.api.exams.pojos.Category;
 import com.dsimdev.api.exams.pojos.Exam;
 import com.dsimdev.api.exams.services.ExamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/app/exams")
@@ -27,6 +30,25 @@ public class ExamController {
     @GetMapping()
     public ResponseEntity<?> readExams() {
         return ResponseEntity.ok(examService.readExams());
+    }
+
+    @GetMapping("/category/{categoryId}")
+    public List<Exam> readExamsByCategory(@PathVariable("categoryId") Long categoryId) {
+        Category categoryLocal = new Category();
+        categoryLocal.setCategoryId(categoryId);
+        return examService.readExamsByCategory(categoryLocal);
+    }
+
+    @GetMapping("/enabled")
+    public List<Exam> readExamsByEnabled() {
+        return examService.readExamsByEnabled();
+    }
+
+    @GetMapping("/enabled/{categoryId}")
+    public List<Exam> readExamsByCategoryAndEnabled(@PathVariable("categoryId") Long categoryId) {
+        Category categoryLocal = new Category();
+        categoryLocal.setCategoryId(categoryId);
+        return examService.readExamByCategoryAndEnabled(categoryLocal);
     }
 
     @PutMapping()
