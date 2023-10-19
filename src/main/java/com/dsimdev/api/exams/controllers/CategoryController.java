@@ -14,10 +14,10 @@ public class CategoryController {
     @Autowired
     CategoryService categoryService;
 
-    @PostMapping()
-    public ResponseEntity<Category> createCategory(@RequestBody Category category) {
-        Category localCategory = categoryService.createCategory(category);
-        return ResponseEntity.ok(localCategory);
+    //GET METHODS
+    @GetMapping()
+    public ResponseEntity<?> readCategories() {
+        return ResponseEntity.ok(categoryService.readCategories());
     }
 
     @GetMapping("/{categoryId}")
@@ -25,16 +25,20 @@ public class CategoryController {
         return categoryService.readCategory(categoryId);
     }
 
-    @GetMapping()
-    public ResponseEntity<?> readCategories() {
-        return ResponseEntity.ok(categoryService.readCategories());
+    // POST METHODS
+    @PostMapping()
+    public ResponseEntity<Category> createCategory(@RequestBody Category category) {
+        Category localCategory = categoryService.createCategory(category);
+        return ResponseEntity.ok(localCategory);
     }
 
+    // PUT METHODS
     @PutMapping()
     public Category updateCategory(@RequestBody Category category) {
         return categoryService.updateCategory(category);
     }
 
+    // DELETE METHODS
     @DeleteMapping("/{categoryId}")
     public void deleteCategory(@PathVariable("categoryId") Long categoryId) {
         categoryService.deleteCategory(categoryId);

@@ -2,6 +2,7 @@ package com.dsimdev.api.exams.services.impls;
 
 import com.dsimdev.api.exams.pojos.Category;
 import com.dsimdev.api.exams.pojos.Exam;
+import com.dsimdev.api.exams.pojos.User;
 import com.dsimdev.api.exams.repos.ExamRepository;
 import com.dsimdev.api.exams.services.ExamService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +54,13 @@ public class ExamServiceImpl implements ExamService {
     }
 
     @Override
+    public User getUserByExamId(Long examId) {
+        return null;
+    }
+
+    @Override
     public void deleteExam(Long examId) {
         examRepository.deleteById(examId);
     }
+
 }

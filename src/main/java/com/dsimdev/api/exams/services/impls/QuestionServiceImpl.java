@@ -44,4 +44,5 @@ public class QuestionServiceImpl implements QuestionService {
     public void deleteQuestion(Long questionId) {
         questionRepository.deleteById(questionId);
     }
+
 }

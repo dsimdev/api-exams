@@ -21,11 +21,7 @@ public class QuestionController {
     @Autowired
     private ExamService examService;
 
-    @PostMapping()
-    public ResponseEntity<Question> createQuestion(@RequestBody Question question) {
-        return ResponseEntity.ok(questionService.createQuestion(question));
-    }
-
+    // GET METHODS
     @GetMapping()
     public ResponseEntity<?> readQuestions() {
         return ResponseEntity.ok(questionService.readQuestions());
@@ -52,22 +48,18 @@ public class QuestionController {
         return ResponseEntity.ok(exams);
     }
 
-    @PutMapping()
-    public ResponseEntity<Question> updateQuestion(@RequestBody Question question) {
-        return ResponseEntity.ok(questionService.updateQuestion(question));
-    }
-
-    @DeleteMapping("/{questionId}")
-    public void deleteQuestion(@PathVariable("questionId") Long questionId) {
-        questionService.deleteQuestion(questionId);
-    }
-
     @GetMapping("/exam/all/{examId}")
     public ResponseEntity<?> getExamQuestionAsAdmin(@PathVariable("examId") Long examId) {
         Exam examLocal = new Exam();
         examLocal.setExamId(examId);
         Set<Question> questions = questionService.readExamQuestions(examLocal);
         return ResponseEntity.ok(questions);
+    }
+
+    // POST METHODS
+    @PostMapping()
+    public ResponseEntity<Question> createQuestion(@RequestBody Question question) {
+        return ResponseEntity.ok(questionService.createQuestion(question));
     }
 
     @PostMapping("/evaluate-exam")
@@ -96,5 +88,18 @@ public class QuestionController {
         return ResponseEntity.ok(answers);
 
     }
+
+    // PUT METHODS
+    @PutMapping()
+    public ResponseEntity<Question> updateQuestion(@RequestBody Question question) {
+        return ResponseEntity.ok(questionService.updateQuestion(question));
+    }
+
+    // DELETE METHODS
+    @DeleteMapping("/{questionId}")
+    public void deleteQuestion(@PathVariable("questionId") Long questionId) {
+        questionService.deleteQuestion(questionId);
+    }
+
 
 }

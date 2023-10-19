@@ -14,13 +14,11 @@ public class Question {
     @Column(length = 5000)
     private String content;
 
-    private String image;
     private String option1;
     private String option2;
     private String option3;
     private String option4;
     private String answer;
-
 
     @Transient
     private String givenAnswer;
@@ -31,10 +29,9 @@ public class Question {
     public Question() {
     }
 
-    public Question(Long questionId, String content, String image, String option1, String option2, String option3, String option4, String answer, Exam exam) {
+    public Question(Long questionId, String content, String option1, String option2, String option3, String option4, String answer, Exam exam) {
         this.questionId = questionId;
         this.content = content;
-        this.image = image;
         this.option1 = option1;
         this.option2 = option2;
         this.option3 = option3;
@@ -57,14 +54,6 @@ public class Question {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
     }
 
     public String getOption1() {
@@ -128,7 +117,6 @@ public class Question {
         return "Question{" +
                 "questionId=" + questionId +
                 ", content='" + content + '\'' +
-                ", image='" + image + '\'' +
                 ", option1='" + option1 + '\'' +
                 ", option2='" + option2 + '\'' +
                 ", option3='" + option3 + '\'' +
@@ -137,4 +125,5 @@ public class Question {
                 ", exam=" + exam +
                 '}';
     }
+
 }

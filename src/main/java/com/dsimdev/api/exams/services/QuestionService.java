@@ -19,5 +19,4 @@ public interface QuestionService {
 
     void deleteQuestion(Long questionId);
 
-
 }

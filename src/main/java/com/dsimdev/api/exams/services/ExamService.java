@@ -23,4 +23,5 @@ public interface ExamService {
     List<Exam> readExamByCategoryAndEnabled(Category category);
 
     void deleteExam(Long examId);
+
 }

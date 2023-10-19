@@ -17,19 +17,15 @@ public class ExamController {
     @Autowired
     private ExamService examService;
 
-    @PostMapping()
-    public ResponseEntity<Exam> createExam(@RequestBody Exam exam) {
-        return ResponseEntity.ok(examService.createExam(exam));
+    // GET METHODS
+    @GetMapping()
+    public ResponseEntity<?> readExams() {
+        return ResponseEntity.ok(examService.readExams());
     }
 
     @GetMapping("/{examId}")
     public ResponseEntity<Exam> readExam(@PathVariable("examId") Long examId) {
         return ResponseEntity.ok(examService.readExam(examId));
-    }
-
-    @GetMapping()
-    public ResponseEntity<?> readExams() {
-        return ResponseEntity.ok(examService.readExams());
     }
 
     @GetMapping("/category/{categoryId}")
@@ -51,11 +47,19 @@ public class ExamController {
         return examService.readExamByCategoryAndEnabled(categoryLocal);
     }
 
+    // POST METHODS
+    @PostMapping()
+    public ResponseEntity<Exam> createExam(@RequestBody Exam exam) {
+        return ResponseEntity.ok(examService.createExam(exam));
+    }
+
+    // PUT METHODS
     @PutMapping()
     public ResponseEntity<Exam> updateExam(@RequestBody Exam exam) {
         return ResponseEntity.ok(examService.updateExam(exam));
     }
 
+    // DELETE METHODS
     @DeleteMapping("/{examId}")
     public void deleteExam(@PathVariable("examId") Long examId) {
         examService.deleteExam(examId);

@@ -138,22 +138,6 @@ public class User implements UserDetails {
     }
 
     @Override
-    public String toString() {
-        return "User{" +
-                "userId=" + userId +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", name='" + name + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", phone='" + phone + '\'' +
-                ", enabled=" + enabled +
-                ", photo='" + photo + '\'' +
-                ", userRoles=" + userRoles +
-                '}';
-    }
-
-    @Override
     public boolean isAccountNonExpired() {
         return true;
     }
@@ -176,4 +160,21 @@ public class User implements UserDetails {
         });
         return authorities;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", enabled=" + enabled +
+                ", photo='" + photo + '\'' +
+                ", userRoles=" + userRoles +
+                '}';
+    }
+
 }

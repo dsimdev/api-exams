@@ -24,7 +24,19 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/")
+    // GET METHODS
+    @GetMapping
+    public List<User> readUsers() {
+        return userService.readUsers();
+    }
+
+    @GetMapping("/{username}")
+    public User readUser(@PathVariable("username") String username) {
+        return userService.readUser(username);
+    }
+
+    // POST METHODS
+    @PostMapping()
     public User createUser(@RequestBody User user) throws Exception {
         user.setPhoto("default.png");
         user.setPassword(this.bCryptPasswordEncoder.encode(user.getPassword()));
@@ -44,24 +56,16 @@ public class UserController {
         return userService.createUser(user, userRoles);
     }
 
-    @GetMapping
-    public List<User> readUsers() {
-        return userService.readUsers();
+    // PUT METHODS
+    @PutMapping()
+    public ResponseEntity<User> updateUser(@RequestBody User user) {
+        return ResponseEntity.ok(userService.updateUser(user));
     }
 
-    @GetMapping("/{username}")
-    public User readUser(@PathVariable("username") String username) {
-        return userService.readUser(username);
-    }
-
+    // DELETE METHODS
     @DeleteMapping("/{userId}")
     public void deleteUser(@PathVariable("userId") Long userId) {
         userService.deleteUser(userId);
-    }
-
-    @PutMapping()
-    public ResponseEntity<User> updateExam(@RequestBody User user) {
-        return ResponseEntity.ok(userService.updateUser(user));
     }
 
 }

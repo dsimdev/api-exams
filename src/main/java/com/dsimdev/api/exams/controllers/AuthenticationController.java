@@ -31,6 +31,13 @@ public class AuthenticationController {
     @Autowired
     private JwtUtils jwtUtils;
 
+    //GET METHODS
+    @GetMapping("/active-user")
+    public User getActiveUser(Principal principal) {
+        return (User) this.userDetailsServiceImpl.loadUserByUsername(principal.getName());
+    }
+
+    //POST METHODS
     @PostMapping("/generate-token")
     public ResponseEntity<?> generateToken(@RequestBody JwtRequest jwtRequest) throws Exception {
         try {
@@ -44,6 +51,7 @@ public class AuthenticationController {
         return ResponseEntity.ok(new JwtResponse(token));
     }
 
+    // UTILS METHODS
     private void authenticateUser(String username, String password) throws Exception {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
@@ -54,8 +62,5 @@ public class AuthenticationController {
         }
     }
 
-    @GetMapping("/active-user")
-    public User getActiveUser(Principal principal) {
-        return (User) this.userDetailsServiceImpl.loadUserByUsername(principal.getName());
-    }
+
 }
